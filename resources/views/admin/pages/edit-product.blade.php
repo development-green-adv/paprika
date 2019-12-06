@@ -21,7 +21,7 @@
 
     <div class="row">
         
-        <form action="/admin/add-product" method="POST">
+        <form action="/admin/edit-product" method="POST">
             @csrf
             <div class="col-12 col-md-1"></div>
 
@@ -56,7 +56,7 @@
                     </div>
                 @endif
 
-                
+                <input type="hidden" name="id" value="{{ $product->id }}">
 
                 <div class="row">
                     
@@ -70,13 +70,13 @@
                                 <select class="form-control" name="category" id="category">
 
                                     <option value="" selected disabled>Izaberite kategoriju</option>
-                                    <option value="pizze">Pizze</option>
-                                    <option value="sendvici">Sendvici</option>
-                                    <option value="stromboli">Stromboli</option>
-                                    <option value="rostilj">Rostilj</option>
-                                    <option value="rostilj-na-kilo">Rostilj na kilo</option>
-                                    <option value="pomfrit">Pomfrit</option>
-                                    <option value="palacinke">Palacinke</option>
+                                    <option @if($product->category == "pizze") selected @endif value="pizze">Pizze</option>
+                                    <option @if($product->category == "sendvici") selected @endif value="sendvici">Sendvici</option>
+                                    <option @if($product->category == "stromboli") selected @endif value="stromboli">Stromboli</option>
+                                    <option @if($product->category == "rostilj") selected @endif value="rostilj">Rostilj</option>
+                                    <option @if($product->category == "rostilj-na-kilo") selected @endif value="rostilj-na-kilo">Rostilj na kilo</option>
+                                    <option @if($product->category == "pomfrit") selected @endif value="pomfrit">Pomfrit</option>
+                                    <option @if($product->category == "palacinke") selected @endif value="palacinke">Palacinke</option>
                                     
                                 </select>
         
@@ -85,14 +85,14 @@
                             <div class="form-group col-12 col-md-4">
 
                                 <label for="">Naziv proizvoda</label>
-                                <input class="form-control" type="text" name="title">
+                                <input class="form-control" type="text" name="title" value="{{ $product->title }}">
         
                             </div>
 
                             <div class="form-group col-12 col-md-4">
 
                                 <label for="">Opis proizvoda</label>
-                                <input class="form-control" type="text" name="description">
+                                <input class="form-control" type="text" name="description" value="{{ $product->description }}">
         
                             </div>
 
@@ -104,7 +104,7 @@
                             <div class="form-group col-12 col-md-4" id="glavna_cena">
 
                                 <label>Cena proizvoda</label>
-                                <input class="form-control" type="text" name="cena">
+                                <input class="form-control" type="text" name="cena" value="{{ $product->cena }}">
 
                             </div>
 
@@ -114,8 +114,8 @@
                                 <select class="form-control" name="na_naslovnoj">
 
                                     <option value="" selected disabled>Izaberite</option>
-                                    <option value="da">Da</option>
-                                    <option value="ne">Ne</option>
+                                    <option @if($product->na_naslovnoj == "da") selected @endif value="da">Da</option>
+                                    <option @if($product->na_naslovnoj == "ne") selected @endif value="ne">Ne</option>
 
                                 </select>
 
@@ -126,19 +126,23 @@
 
                         <div class="row" id="pizza_sec">
 
-                            <div class="form-group col-12 col-md-4">
+                            @if($product->category == "pizze")
 
-                                <label>Cena za 32cm</label>
-                                <input class="form-control" type="text" name="pica_32">
+                                <div class="form-group col-12 col-md-4">
 
-                            </div>
+                                    <label>Cena za 32cm</label>
+                                    <input class="form-control" type="text" name="pica_32" value={{ $product->cena_32 }}>
 
-                            <div class="form-group col-12 col-md-4">
+                                </div>
 
-                                <label>Cena za 50cm</label>
-                                <input class="form-control" type="text" name="pica_50">
+                                <div class="form-group col-12 col-md-4">
 
-                            </div>
+                                    <label>Cena za 50cm</label>
+                                    <input class="form-control" type="text" name="pica_50" value="{{ $product->cena_50 }}">
+
+                                </div>
+
+                            @endif
 
                         </div>
 
@@ -151,8 +155,8 @@
                                 @foreach($allDodatak as $dodatak)
 
                                     <div class="col-12 col-md-2">
-                                        <input type="checkbox" name="dodatak[]" value="{{ $dodatak->id }}"> <span style="margin-left: 7px;">{{ $dodatak->dodatak_name }} ( <b>{{ $dodatak->dodatak_price }} rsd</b> )</span>
-                                    </div>
+                                        <input type="checkbox" name="dodatak[]" @if(in_array($dodatak->id, $productDodatak)) checked @endif value="{{ $dodatak->id }}"> <span style="margin-left: 7px;">{{ $dodatak->dodatak_name }} ( <b>{{ $dodatak->dodatak_price }} rsd</b> )</span>
+                                    </div>                                    
 
                                 @endforeach
 
@@ -496,7 +500,7 @@
         
         $(document).ready(function(){
 
-            $("#pizza_sec").css("display", "none");
+            //$("#pizza_sec").css("display", "none");
 
         });
 

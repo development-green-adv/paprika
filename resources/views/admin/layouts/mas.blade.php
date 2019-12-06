@@ -155,10 +155,28 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="/admin/add-products"><i class="fas fa-arrow-alt-circle-right"></i> Dodaj Proizvod</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-alt-circle-right"></i> Lista Admina</a></li>
+                        <li><a href="/admin/list-products"><i class="fas fa-arrow-alt-circle-right"></i> Lista Proizvoda</a></li>
+                        <li><a href="/admin/sort-products"><i class="fas fa-arrow-alt-circle-right"></i> Sortiraj Proizvode</a></li>
                     </ul>
                 </li>
                 <!--// Kraj kategorije -->
+
+
+                <!--// Kategorije -->
+                <li class="treeview">
+                        <a href="#">
+                        <i class="fas fa-users"></i>
+                        <span style="margin-left: 5px;">Dodaci</span>
+                        <span class="pull-right-container">
+                            <span class="label label-primary pull-right">2</span>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/admin/add-dodatak"><i class="fas fa-arrow-alt-circle-right"></i> Dodaj Dodatak</a></li>
+                            <li><a href="/admin/list-dodatak"><i class="fas fa-arrow-alt-circle-right"></i> Lista Dodataka</a></li>
+                        </ul>
+                    </li>
+                    <!--// Kraj kategorije -->
 
         
             </ul>
